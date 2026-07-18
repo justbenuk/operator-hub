@@ -8,7 +8,7 @@ import { User2Icon } from "lucide-react"
 
 export default function SiteHeader() {
   return (
-    <header className="bg-secondary">
+    <header className="bg-gray-900 text-secondary dark:text-secondary-foreground">
       <PageContainer className="py-4">
         <div className="grid grid-cols-[1fr_auto] items-center lg:grid-cols-[1fr_auto_1fr]">
           <div className="justify-self-start">
@@ -21,7 +21,7 @@ export default function SiteHeader() {
               <Button
                 asChild
                 variant="outline"
-                className="hidden h-10 border border-primary px-6 sm:inline-flex"
+                className="hidden h-10 border border-primary px-6 sm:inline-flex bg-secondary text-secondary-foreground"
               >
                 <Link href="/login">Add Your Business</Link>
               </Button>

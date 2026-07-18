@@ -7,8 +7,8 @@ import { Button } from "./ui/button";
 
 export default function SiteHero() {
   return (
-    <section className="overflow-hidden bg-background">
-      <PageContainer>
+    <section className=" bg-background">
+      <PageContainer className="rounded-2xl lg:rounded-none">
         <div className="grid min-h-136 grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
           <div className="relative z-10 flex max-w-2xl flex-col items-start py-14 sm:py-20 lg:py-24">
             <Badge className="mb-5 h-auto rounded-sm bg-primary/15 px-2.5 py-1 text-[0.68rem] font-bold tracking-[0.08em] text-chart-4 uppercase">
