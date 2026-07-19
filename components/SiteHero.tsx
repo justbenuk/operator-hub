@@ -8,7 +8,7 @@ import { Button } from "./ui/button";
 export default function SiteHero() {
   return (
     <section className=" bg-background">
-      <PageContainer className="rounded-2xl lg:rounded-none">
+      <PageContainer className="2xl:rounded-2xl">
         <div className="grid min-h-136 grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
           <div className="relative z-10 flex max-w-2xl flex-col items-start py-14 sm:py-20 lg:py-24">
             <Badge className="mb-5 h-auto rounded-sm bg-primary/15 px-2.5 py-1 text-[0.68rem] font-bold tracking-[0.08em] text-chart-4 uppercase">
@@ -46,7 +46,7 @@ export default function SiteHero() {
             </div>
           </div>
 
-          <div className="relative h-88 min-w-0 sm:h-122 lg:h-full lg:min-h-136">
+          <div className="hidden lg:block relative h-88 min-w-0 sm:h-122 lg:h-full lg:min-h-136">
             <div className="absolute inset-y-0 -left-6 right-[-15vw] overflow-hidden lg:-left-20">
               <Image
                 src="/london-taxi-hero.jpg"
@@ -54,7 +54,7 @@ export default function SiteHero() {
                 fill
                 priority
                 sizes="(min-width: 1024px) 58vw, 100vw"
-                className="object-cover object-[55%_center]"
+                className="object-cover object-[55%_center] overflow-hidden"
               />
               <div className="absolute inset-0 bg-linear-to-r from-black/5 via-transparent to-black/5" />
             </div>
