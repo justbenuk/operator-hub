@@ -32,7 +32,7 @@ export default function SiteLogo({ size = "medium" }: SiteLogoProps) {
       className="flex flex-row items-center justify-center gap-3"
     >
       <CarTaxiFrontIcon className={cn("text-primary", iconSizes[size])} />
-      <div className="flex flex-col justify-center">
+      <div className="hidden lg:flex flex-col justify-center">
         <span className={cn("font-semibold", textSizes[size])}>OperatorHub</span>
         <span className={cn("font-semibold", subSizes[size])}>The Home of Independent UK taxi Companies</span>
       </div>

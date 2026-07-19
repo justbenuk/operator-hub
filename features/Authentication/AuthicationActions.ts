@@ -47,3 +47,13 @@ export async function loginUserAction(data: z.infer<typeof LoginUserSchema>) {
     throw new Error(`Login Error: ${error}`)
   }
 }
+
+export async function isLoggedIn() {
+  const session = await auth.api.getSession({
+    headers: await headers()
+  })
+
+  if (!session?.user) return null
+
+  return session.user
+}
