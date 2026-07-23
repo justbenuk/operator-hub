@@ -12,21 +12,23 @@ datasource db {
 }
 
 model User {
-  id            String       @id
-  name          String
-  email         String
-  emailVerified Boolean      @default(false)
-  image         String?
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  role          String?
-  banned        Boolean?     @default(false)
-  banReason     String?
-  banExpires    DateTime?
-  sessions      Session[]
-  accounts      Account[]
-  members       Member[]
-  invitations   Invitation[]
+  id              String           @id
+  name            String
+  email           String
+  emailVerified   Boolean          @default(false)
+  image           String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  role            String?
+  banned          Boolean?         @default(false)
+  banReason       String?
+  banExpires      DateTime?
+  sessions        Session[]
+  accounts        Account[]
+  members         Member[]
+  invitations     Invitation[]
+  companyProfiles CompanyProfile[]
+  activityLogs    ActivityLog[]
 
   @@unique([email])
   @@map("user")
@@ -83,14 +85,15 @@ model Verification {
 }
 
 model Organization {
-  id          String       @id
-  name        String
-  slug        String
-  logo        String?
-  createdAt   DateTime
-  metadata    String?
-  members     Member[]
-  invitations Invitation[]
+  id           String        @id
+  name         String
+  slug         String
+  logo         String?
+  createdAt    DateTime
+  metadata     String?
+  members      Member[]
+  invitations  Invitation[]
+  activityLogs ActivityLog[]
 
   @@unique([slug])
   @@map("organization")
@@ -125,4 +128,135 @@ model Invitation {
   @@index([organizationId])
   @@index([email])
   @@map("invitation")
+}
+
+model CompanyProfile {
+  id String @id @default(cuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  name          String
+  logoUrl       String?
+  coverImageUrl String?
+
+  shortDescription String
+  fullDescription  String
+  establishedYear  Int?
+  vehicleCount     Int?
+
+  address String
+  phone   String
+  email   String
+  website String?
+
+  facebook  String?
+  instagram String?
+  twitter   String?
+  linkedin  String?
+  tiktok    String?
+
+  isTwentyFourSeven Boolean @default(false)
+
+  operatingAreas OperatingArea[]
+  openingHours   OpeningHour[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OperatingArea {
+  id String @id @default(cuid())
+
+  companyId String
+  company   CompanyProfile @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  name      String
+
+  @@index([companyId])
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+model OpeningHour {
+  id String @id @default(cuid())
+
+  companyId String
+  company   CompanyProfile @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  day DayOfWeek
+
+  openTime  String? // e.g. "08:00"
+  closeTime String? // e.g. "18:00"
+
+  closed Boolean @default(false)
+
+  @@unique([companyId, day])
+}
+
+model ActivityLog {
+  id String @id @default(cuid())
+
+  organisationId String?
+  organisation   Organization? @relation(fields: [organizationId], references: [id])
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  feature ActivityFeature
+  action  ActivityAction
+
+  description String @db.Text
+
+  entityType String?
+  entityId   String?
+
+  metadata Json?
+
+  createdAt      DateTime @default(now())
+  organizationId String
+
+  @@index([organisationId])
+  @@index([organisationId, createdAt])
+  @@index([organisationId, feature])
+  @@index([userId])
+  @@index([entityType, entityId])
+}
+
+enum ActivityFeature {
+  COMPANY
+  BLOG
+  CMS
+  PAGE
+  COMPLAINT
+  LOST_PROPERTY
+  DRIVER
+  VEHICLE
+  DOCUMENT
+  USER
+  SETTINGS
+  AUTH
+  OTHER
+}
+
+enum ActivityAction {
+  CREATED
+  UPDATED
+  DELETED
+  PUBLISHED
+  UNPUBLISHED
+  ARCHIVED
+  RESTORED
+  ASSIGNED
+  STATUS_CHANGED
+  LOGIN
+  LOGOUT
+  OTHER
 }

@@ -4,7 +4,7 @@ import SiteLogo from "../SiteLogo"
 import ThemeToggle from "../ThemeToggle"
 import { Button } from "../ui/button"
 import PageContainer from "../PageContainer"
-import { BadgeCheck, Bell, CreditCard, LayoutDashboardIcon, LogOut, Sparkles, User2Icon } from "lucide-react"
+import { BadgeCheck, Bell, CreditCard, LayoutDashboardIcon, User2Icon } from "lucide-react"
 import { isLoggedIn } from "@/features/Authentication/AuthicationActions"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { AvatarImage, AvatarFallback, Avatar } from "../ui/avatar"
@@ -72,6 +72,19 @@ export default async function SiteHeader() {
                       </div>
                     </div>
                   </DropdownMenuLabel>
+                  {user.role === 'admin' && (
+                    <>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem asChild>
+                          <Link href={'/admin'}>
+                            <LayoutDashboardIcon />
+                            Admin
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                    </>
+                  )}
                   <DropdownMenuSeparator />
                   <DropdownMenuGroup>
                     <DropdownMenuItem asChild>
