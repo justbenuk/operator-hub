@@ -166,13 +166,11 @@ model CompanyProfile {
 }
 
 model OperatingArea {
-  id String @id @default(cuid())
-
-  companyId String
-  company   CompanyProfile @relation(fields: [companyId], references: [id], onDelete: Cascade)
-  name      String
-
-  @@index([companyId])
+  id               String          @id @default(cuid())
+  name             String
+  slug             String
+  companyProfile   CompanyProfile? @relation(fields: [companyProfileId], references: [id])
+  companyProfileId String?
 }
 
 enum DayOfWeek {
@@ -204,8 +202,8 @@ model OpeningHour {
 model ActivityLog {
   id String @id @default(cuid())
 
-  organisationId String?
-  organisation   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
 
   userId String?
   user   User?   @relation(fields: [userId], references: [id])
@@ -220,12 +218,11 @@ model ActivityLog {
 
   metadata Json?
 
-  createdAt      DateTime @default(now())
-  organizationId String
+  createdAt DateTime @default(now())
 
-  @@index([organisationId])
-  @@index([organisationId, createdAt])
-  @@index([organisationId, feature])
+  @@index([organizationId])
+  @@index([organizationId, createdAt])
+  @@index([organizationId, feature])
   @@index([userId])
   @@index([entityType, entityId])
 }

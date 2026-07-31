@@ -1,8 +1,10 @@
-import z from "zod";
 import { DayOfWeek } from "@prisma/client";
+import z from "zod";
 
 export const companySchema = z.object({
   name: z.string().min(2),
+  logoUrl: z.string().optional(),
+  coverImageUrl: z.string().optional(),
   shortDescription: z.string().max(255),
   fullDescription: z.string(),
   establishedYear: z.coerce.number().optional(),
@@ -19,6 +21,10 @@ export const companySchema = z.object({
       openTime: z.string().optional(),
       closeTime: z.string().optional(),
       closed: z.boolean(),
-    })
+    }),
   ),
-})
+});
+
+export const operatingArea = z.object({
+  name: z.string().min(1, "You must provide a name"),
+});
