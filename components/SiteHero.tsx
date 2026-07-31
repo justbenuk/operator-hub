@@ -7,8 +7,8 @@ import { Button } from "./ui/button";
 
 export default function SiteHero() {
   return (
-    <section className=" bg-background">
-      <PageContainer className="2xl:rounded-2xl">
+    <section className=" bg-background overflow-hidden">
+      <PageContainer className="overflow-hidden">
         <div className="grid min-h-136 grid-cols-1 items-center gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-0">
           <div className="relative z-10 flex max-w-2xl flex-col items-start py-14 sm:py-20 lg:py-24">
             <Badge className="mb-5 h-auto rounded-sm bg-primary/15 px-2.5 py-1 text-[0.68rem] font-bold tracking-[0.08em] text-chart-4 uppercase">
@@ -26,7 +26,11 @@ export default function SiteHero() {
             </p>
 
             <div className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-              <Button asChild size="lg" className="h-12 px-6 font-semibold shadow-sm">
+              <Button
+                asChild
+                size="lg"
+                className="h-12 px-6 font-semibold shadow-sm"
+              >
                 <Link href="/directory">
                   <MapPin className="size-4" />
                   Find a Taxi Near You
