@@ -10,10 +10,9 @@ export default function UnauthorisedPage() {
         <h1 className="text-primary text-4xl font-semibold">Woooooowwwwww</h1>
         <p className="text-xl">Your not allowed to be here</p>
         <Button asChild className="mt-6">
-          <Link href={'/'}>Go Home</Link>
+          <Link href={"/"}>Go Home</Link>
         </Button>
       </div>
     </div>
-  )
+  );
 }
-
