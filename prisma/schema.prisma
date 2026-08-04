@@ -11,6 +11,18 @@ datasource db {
   provider = "postgresql"
 }
 
+model SiteContact {
+  id      String  @id @default(cuid())
+  name    String
+  email   String
+  subject String?
+  message String
+
+  createdAt DateTime @default(now())
+
+  @@map("site-contact")
+}
+
 model User {
   id              String           @id
   name            String
